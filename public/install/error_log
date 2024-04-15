@@ -1,0 +1,4 @@
+[25-Mar-2024 19:51:17 UTC] PHP Warning:  Undefined array key "host" in /home5/trickyp1/logicbard.xyz/ebook/public/install/index.php on line 330
+[25-Mar-2024 19:51:17 UTC] PHP Warning:  Undefined array key "user" in /home5/trickyp1/logicbard.xyz/ebook/public/install/index.php on line 331
+[25-Mar-2024 19:51:17 UTC] PHP Warning:  Undefined array key "pass" in /home5/trickyp1/logicbard.xyz/ebook/public/install/index.php on line 332
+[25-Mar-2024 19:51:17 UTC] PHP Warning:  Undefined array key "name" in /home5/trickyp1/logicbard.xyz/ebook/public/install/index.php on line 333
