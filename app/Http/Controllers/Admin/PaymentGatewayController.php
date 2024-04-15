@@ -106,7 +106,11 @@ class PaymentGatewayController extends MainAdminController
             $page_title='Bank Transfer';
 
             return view('admin.pages.gateway.banktransfer',compact('page_title','post_info','gateway_info'));
-          }         
+        } 
+        elseif($post_id == 12){
+                $page_title = "BKash Payment";
+                return view('admin.pages.gateway.bkash',compact('page_title','post_info','gateway_info'));
+          }        
                      
  
     }    
@@ -173,6 +177,45 @@ class PaymentGatewayController extends MainAdminController
           $stripe_publishable_key= $inputs['stripe_publishable_key'];
 
           $gateway_data=json_encode(['stripe_secret_key' => $stripe_secret_key,'stripe_publishable_key' => $stripe_publishable_key]);  
+ 
+          $ad_obj->gateway_name = addslashes($inputs['gateway_name']); 
+          $ad_obj->gateway_info = $gateway_data;
+          
+          $ad_obj->status = $inputs['status'];   
+          $ad_obj->save();
+
+          \Session::flash('flash_message', trans('words.successfully_updated'));
+
+          return \Redirect::back();
+    }
+
+    public function bkash(Request $request){
+        $data =  \Request::except(array('_token')) ;
+        
+        $rule=array(
+                'gateway_name' => 'required',
+                'bkash_secret_key' => 'required',
+                'bkash_public_key' => 'required',
+                'username' => 'required',
+                'password' => 'required',
+                 );
+        
+         $validator = \Validator::make($data,$rule);
+ 
+        if ($validator->fails())
+        {
+                return redirect()->back()->withErrors($validator->messages());
+        } 
+        $inputs = $request->all();
+
+        $ad_obj = PaymentGateway::findOrFail($inputs['id']);
+
+          $bkash_secret= $inputs['bkash_secret_key'];
+          $bkash_public= $inputs['bkash_public_key'];
+          $username = $inputs['username'];
+          $password = $inputs['password'];
+
+          $gateway_data=json_encode(['bkash_secret_key' => $bkash_secret,'bkash_publishable_key' => $bkash_public, 'username' => $username, 'password' => $password]);  
  
           $ad_obj->gateway_name = addslashes($inputs['gateway_name']); 
           $ad_obj->gateway_info = $gateway_data;

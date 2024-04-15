@@ -93,6 +93,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::get('payment_gateway/edit/{id}', 'PaymentGatewayController@edit');   
     Route::post('payment_gateway/paypal', 'PaymentGatewayController@paypal');
     Route::post('payment_gateway/stripe', 'PaymentGatewayController@stripe');
+    Route::post('payment_gateway/bkash', 'PaymentGatewayController@bkash');
     Route::post('payment_gateway/razorpay', 'PaymentGatewayController@razorpay');
     Route::post('payment_gateway/paystack', 'PaymentGatewayController@paystack');
     Route::post('payment_gateway/instamojo', 'PaymentGatewayController@instamojo');
