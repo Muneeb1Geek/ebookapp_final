@@ -194,10 +194,10 @@ class PaymentGatewayController extends MainAdminController
         
         $rule=array(
                 'gateway_name' => 'required',
-                'bkash_secret_key' => 'required',
-                'bkash_public_key' => 'required',
-                'username' => 'required',
-                'password' => 'required',
+                // 'bkash_secret_key' => 'required',
+                // 'bkash_public_key' => 'required',
+                // 'username' => 'required',
+                // 'password' => 'required',
                  );
         
          $validator = \Validator::make($data,$rule);
