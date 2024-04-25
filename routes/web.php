@@ -68,6 +68,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::get('reviews', 'ReviewsController@list');
 
     Route::get('reports', 'ReportsController@list');
+    Route::get('posts', 'PostController@list');
+    Route::get('post/edit/{id}', 'PostController@showEdit');
+    
  
     Route::get('users', 'UsersController@list');   
     Route::get('users/add', 'UsersController@add'); 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -85,4 +86,7 @@ Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
     Route::post('razorpay_order_id_get', 'AndroidApiController@razorpay_order_id_get');
     Route::post('get_payu_hash', 'AndroidApiController@payumoney_hash_generator');
     Route::post('get_paytm_token_id', 'AndroidApiController@create_paytm_token');
+
+    // posts APIs
+    Route::post('store_post', 'PostController@storePost');
 });

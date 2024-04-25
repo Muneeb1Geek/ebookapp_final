@@ -19,6 +19,9 @@ use App\PaymentGateway;
 use App\HomeSections;
 
 use App\Http\Requests;
+use App\Models\Post;
+use App\Models\PostComments;
+use App\Models\PostLikes;
 use Illuminate\Http\Request;
 use Session;
 use Intervention\Image\Facades\Image;
@@ -370,7 +373,15 @@ class ActionsController extends MainAdminController
                 $response['status'] = 1;     
             }
                    
-        }   
+        }  
+        elseif($action_for == "post_delete"){
+            // dd($request->all());
+            $id = $request->id;
+            PostLikes::where('post_id', $id)->delete();
+            PostComments::where('post_id', $id)->delete();
+            Post::where('id', $id)->delete();
+            $response['status'] = 1;
+        } 
         else
         {
             $response['status'] = 0;            

@@ -44,7 +44,7 @@
    
     @include("admin.topbar") 
 
-    @include("admin.sidebar")
+    @include("admin.sidebar") 
 
     @yield("content")
 

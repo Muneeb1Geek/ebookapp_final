@@ -267,4 +267,14 @@ return [
     'author_order_by' => 'Author order',
     'book_by' => 'Book by',
     'book_order_by' => 'Book order',
+
+    'posts' => 'Posts',
+    'post_text' => 'Post Text',
+    'post_image' => 'Post Image',
+    'no_of_likes' => 'No of Likes',
+    'no_of_comments' => 'No of comments',
+    'user' => 'User',
+    'post_edit' => "Edit Text",
+    'post_image' => "Change Image",
+    
    ];
