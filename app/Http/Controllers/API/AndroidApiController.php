@@ -23,6 +23,7 @@ use App\Transactions;
 use App\ContinueRead;
 use App\UserDownload;
 use App\RentInfo;
+use App\Models\Post;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -2878,6 +2879,28 @@ class AndroidApiController extends MainAPIController
             'status_code' => 200
         ));        
         
+    }
+
+    public function storePost(Request $request){
+        $get_data=checkSignSalt($_POST['data']);
+        $userId = $get_data['user_id'];
+        if(!$userId){
+            return response()->json(['EBOOK_APP' => "Please login first to add POST", 'status_code' => 400]);
+        }
+        
+        $postText = $get_data['post_text'];
+        $postImage = $get_data['post_image'];
+        
+        $post = new Post();
+        $post->user_id = $userId;
+        $post->post_text = $postText;
+        $post->post_image = $postImage;
+        if($post->save()){
+            return response()->json(['EBOOK_APP' => "Post Added successfully", 'status_code'=>200]);
+        }else{
+            return response()->json(['EBOOK_APP' => "Error Saving the post", 'status_code' => 400]);
+        }
+
     }
  
 }

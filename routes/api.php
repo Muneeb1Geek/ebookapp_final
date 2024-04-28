@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -88,5 +87,5 @@ Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
     Route::post('get_paytm_token_id', 'AndroidApiController@create_paytm_token');
 
     // posts APIs
-    Route::post('store_post', 'PostController@storePost');
+    Route::middleware("api")->post('store_post', 'AndroidApiController@storePost');
 });

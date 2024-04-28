@@ -7,14 +7,6 @@ use App\Models\Post;
 
 class PostController extends MainAdminController
 {
-    // ================== API Functions ====================
-
-    // function used for uploading the post
-    public function storePost(Request $request){
-        dd("123");
-    }
-
-
 
     // ============== Admin functions ====================
 

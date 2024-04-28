@@ -497,8 +497,8 @@ function checkSignSalt($data_info){
 
         $data_arr = json_decode(urldecode(base64_decode($data_json)),true);
 
-        //echo $data_arr['salt'];
-        //exit;
+        // echo $data_arr['salt'];
+        // exit;
 
         if((!isset($data_arr['sign']) && !isset($data_arr['salt'])) OR ($data_arr['sign'] == '' && $data_arr['salt'] == '')){
             //$data['data'] = array("status" => -1, "message" => "Invalid sign salt.");
