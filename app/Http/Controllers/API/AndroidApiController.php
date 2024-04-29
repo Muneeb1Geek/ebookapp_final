@@ -28,6 +28,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image; 
 use Illuminate\Support\Str;
@@ -2882,14 +2883,19 @@ class AndroidApiController extends MainAPIController
     }
 
     public function storePost(Request $request){
-        $get_data=checkSignSalt($_POST['data']);
-        $userId = $get_data['user_id'];
-        if(!$userId){
-            return response()->json(['EBOOK_APP' => "Please login first to add POST", 'status_code' => 400]);
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'post_text' => 'required',
+            'post_image' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(["success" => false , "msg" => "Something Went Wrong" ,"error" => $validator->getMessageBag()] , 400);
         }
-        
-        $postText = $get_data['post_text'];
-        $postImage = $get_data['post_image'];
+
+        $userId = $request->user_id;
+        $postText = $request->post_text;
+        $postImage = $request->post_image;
         
         $post = new Post();
         $post->user_id = $userId;
