@@ -24,7 +24,8 @@ use App\ContinueRead;
 use App\UserDownload;
 use App\RentInfo;
 use App\Models\Post;
-
+use App\Models\PostLikes;
+use App\Models\PostComments;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -2890,7 +2891,7 @@ class AndroidApiController extends MainAPIController
         ]);
 
         if($validator->fails()){
-            return response()->json(["success" => false , "msg" => "Something Went Wrong" ,"error" => $validator->getMessageBag()] , 400);
+            return response()->json(["success" => false , "msg" => "Something Went Wrong" ,"error" => $validator->getMessageBag(), 'status' => 400], 400);
         }
 
         $userId = $request->user_id;
@@ -2907,6 +2908,35 @@ class AndroidApiController extends MainAPIController
             return response()->json(['EBOOK_APP' => "Error Saving the post", 'status_code' => 400]);
         }
 
+    }
+
+    public function deletePost(Request $request){
+        $validator = Validator::make($request->all(), [
+            "post_id" => 'required',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['msg'=>"Something went wrong", "error" => $validator->getMessageBag(), 'status' => 400], 400);
+        }
+
+        try{
+            $id = $request->post_id;
+            PostLikes::where('post_id', $id)->delete();
+            PostComments::where('post_id', $id)->delete();
+            Post::where('id', $id)->delete();
+            return response()->json(['EBOOK_APP' => "Post deleted successfully", 'status_code'=>200]);
+        }catch(\Exception $e){
+            return response()->json(['EBOOK_APP' => "Something went wrong.Please try again later", 'status_code' => 400]);
+        }
+    }
+
+    public function showAllPosts(){
+        $posts = Post::get();
+        if($posts){
+            return response()->json(['EBOOK_APP' => $posts, 'status_code'=>200], 200);
+        }else{
+            return response()->json(['msg' => "No post available in database", 'status_code'=>400], 400);
+        }
     }
  
 }
