@@ -66,6 +66,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::get('reports', 'ReportsController@list');
     Route::get('posts', 'PostController@list');
     Route::get('post/edit/{id}', 'PostController@showEdit');
+    Route::post('update-post', 'PostController@updatePost')->name('update.post');
     
  
     Route::get('users', 'UsersController@list');   

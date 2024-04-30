@@ -2931,12 +2931,52 @@ class AndroidApiController extends MainAPIController
     }
 
     public function showAllPosts(){
-        $posts = Post::get();
+        $posts = Post::with('likes', 'comments')->get();
         if($posts){
             return response()->json(['EBOOK_APP' => $posts, 'status_code'=>200], 200);
         }else{
             return response()->json(['msg' => "No post available in database", 'status_code'=>400], 400);
         }
     }
+
+    public function showSpecificPost(Request $request){
+        $validator = Validator::make($request->all(), [
+            "post_id" => 'required',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['msg'=>"Something went wrong", "error" => $validator->getMessageBag(), 'status' => 400], 400);
+        }
+
+        try{
+            $id = $request->post_id;
+            $post = Post::with('likes', 'comments')->where('id', $id)->get();
+            if($post){
+                return response()->json(['EBOOK_APP' => $post, 'status_code'=>200], 200);
+            }else{
+                return response()->json(['msg' => "No post available in database", 'status_code'=>400], 400);
+            }
+        }catch(\Exception $e){
+            return response()->json(['EBOOK_APP' => "Something went wrong.Please try again later", 'status_code' => 400]); 
+        }
+    }
+
+    // public function storeLike(Request $request){
+    //     $validator = Validator::make($request->all(), [
+    //         "post_id" => 'required',
+    //         "user_id" => 'required',
+    //         "like_status" => 'required',
+    //     ]);
+
+    //     if($validator->fails()){
+    //         return response()->json(['msg'=>"Something went wrong", "error" => $validator->getMessageBag(), 'status' => 400], 400);
+    //     }
+
+    //     try{
+
+    //     }catch(\Exception $e){
+    //         return response()->json(['EBOOK_APP' => "Something went wrong.Please try again later", 'status_code' => 400]); 
+    //     }
+    // }
  
 }

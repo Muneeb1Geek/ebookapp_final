@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AndroidApiController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -90,4 +91,5 @@ Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
     Route::middleware("api")->post('store_post', 'AndroidApiController@storePost');
     Route::middleware("api")->post('delete_post', 'AndroidApiController@deletePost');
     Route::middleware("api")->get('show_all_posts', 'AndroidApiController@showAllPosts');
+    Route::middleware("api")->post('show_specific_post', 'AndroidApiController@showSpecificPost');
 });

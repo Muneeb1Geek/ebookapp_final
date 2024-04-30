@@ -41,7 +41,7 @@
                     <tr>
                         <td>{{$item->post_text}}</td>
                         <td>
-                          <a href="{{asset('posts/images/' . $item->post_image)}}" target="_blank">View Image</a>
+                          <a href="{{$item->post_image}}" target="_blank">View Image</a>
                         </td>
                         <td>{{count($item->likes)}}</td>
                         <td>{{count($item->comments)}}</td>
