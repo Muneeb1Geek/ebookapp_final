@@ -2878,7 +2878,7 @@ class AndroidApiController extends MainAPIController
         $response_arr[] = array('msg' => trans('words.user_dlt_success'),'success'=>'1');
          
          return \Response::json(array(            
-            'EBOOK_APP' => $response_arr,
+            'EBOOK_APP' => $response_arr,     
             'status_code' => 200
         ));        
         
