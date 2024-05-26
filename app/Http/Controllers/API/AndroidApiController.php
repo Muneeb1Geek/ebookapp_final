@@ -2932,17 +2932,25 @@ class AndroidApiController extends MainAPIController
     }
 
     public function showAllPosts(){
-        $posts = Post::with('likes', 'comments')->get();
+        $posts = Post::with('likes', 'comments', 'user')->get();
         $data = $posts->map(function($d){
-            return [
+            $postArray = [
                 "id" => $d->id,
                 "user_id" => $d->user_id,
+                "user_name" => $d->user->name,
                 "post_text" => $d->post_text,
                 "post_image" => $d->post_image,
                 "created_at" => Carbon::parse($d->created_at)->diffForHumans(),
                 "likes" => $d->likes,
                 "comments" => $d->comments,
             ];
+
+            if($d->user->user_image){
+                $postArray["user_image"] = asset("upload/" . $d->user->user_image);
+            }else{
+                $postArray["user_image"] = asset("upload/kuldip-viaviweb-f357cb0127763badcc188773c90aadb8-b.jpg");
+            }
+            return $postArray;
         });
         if($data){
             return response()->json(['EBOOK_APP' => $data, 'status_code'=>200], 200);
