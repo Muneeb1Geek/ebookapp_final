@@ -37,7 +37,7 @@
             <li><a href="{{ URL::to('admin/pages') }}" class="waves-effect {{classActivePath('pages')}}"><i class="fa fa-edit"></i><span>{{trans('words.pages')}}</span></a></li>
 
             
-            <li><a href="{{ URL::to('admin/posts') }}" class="waves-effect {{classActivePath('posts')}}"><i class="fa fa-bug"></i><span>{{trans('words.posts')}}</span></a></li>
+            <li><a href="{{ URL::to('admin/posts') }}" class="waves-effect {{classActivePath('posts')}}"><i class="fa fa-sticky-note-o"></i><span>{{trans('words.posts')}}</span></a></li>
               
 
             <li><a href="{{ URL::to('admin/notification_send') }}" class="waves-effect {{classActivePath('notification_send')}}"><i class="fa fa-bell"></i><span>{{trans('words.notification_send')}}</span></a></li>
