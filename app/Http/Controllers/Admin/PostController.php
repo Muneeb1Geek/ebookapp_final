@@ -15,7 +15,6 @@ class PostController extends MainAdminController
         try{
             $page_title=trans('words.posts');
             $posts = Post::with('user', 'likes', 'comments')->get();
-            // dd($posts);
             return view('admin.pages.posts.list', compact('page_title', 'posts'));
         }catch(\Exception $e){
             return redirect()->back()->with(['error' => "Somthing wrong happend. Please try again later"]);

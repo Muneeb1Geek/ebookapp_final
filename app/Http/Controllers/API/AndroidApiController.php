@@ -24,6 +24,7 @@ use App\ContinueRead;
 use App\UserDownload;
 use App\RentInfo;
 use App\Models\Post;
+use Carbon\Carbon;
 use App\Models\PostLikes;
 use App\Models\PostComments;
 use Illuminate\Http\Request;
@@ -2932,8 +2933,19 @@ class AndroidApiController extends MainAPIController
 
     public function showAllPosts(){
         $posts = Post::with('likes', 'comments')->get();
-        if($posts){
-            return response()->json(['EBOOK_APP' => $posts, 'status_code'=>200], 200);
+        $data = $posts->map(function($d){
+            return [
+                "id" => $d->id,
+                "user_id" => $d->user_id,
+                "post_text" => $d->post_text,
+                "post_image" => $d->post_image,
+                "created_at" => Carbon::parse($d->created_at)->diffForHumans(),
+                "likes" => $d->likes,
+                "comments" => $d->comments,
+            ];
+        });
+        if($data){
+            return response()->json(['EBOOK_APP' => $data, 'status_code'=>200], 200);
         }else{
             return response()->json(['msg' => "No post available in database", 'status_code'=>400], 400);
         }

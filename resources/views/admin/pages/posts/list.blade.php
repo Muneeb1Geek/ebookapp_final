@@ -33,6 +33,7 @@
                       <th>{{trans('words.no_of_likes')}}</th>
                       <th>{{trans('words.no_of_comments')}}</th>
                       <th>{{trans('words.user')}}</th>
+                      <th>{{trans('words.create_date')}}</th>
                       <th>{{trans('words.action')}}</th>
                     </tr>
                   </thead>
@@ -46,11 +47,10 @@
                         <td>{{count($item->likes)}}</td>
                         <td>{{count($item->comments)}}</td>
                         <td>{{$item->user->name}}</td>
+                        <td>{{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</td>
                         <td>
-                            
                           <a href="{{url('admin/post/edit/' . $item->id)}}" class="btn btn-icon waves-effect waves-light btn-success m-b-5 m-r-5" data-toggle="tooltip" title="{{trans('words.edit')}}"> <i class="fa fa-edit"></i> </a>
                           <a href="#" class="btn btn-icon waves-effect waves-light btn-danger m-b-5 m-r-5 data_remove" data-toggle="tooltip" data-id="{{$item->id}}" title="{{trans('words.delete')}}"> <i class="fa fa-trash"></i> </a>  
-                        
                         </td>
                       </tr>
                     @endforeach

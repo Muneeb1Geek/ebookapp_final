@@ -276,5 +276,6 @@ return [
     'user' => 'User',
     'post_edit' => "Edit Text",
     'post_image' => "Change Image",
+    'create_date' => "Created At",
     
    ];
