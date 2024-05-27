@@ -92,4 +92,6 @@ Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
     Route::middleware("api")->post('delete_post', 'AndroidApiController@deletePost');
     Route::middleware("api")->get('show_all_posts', 'AndroidApiController@showAllPosts');
     Route::middleware("api")->post('show_specific_post', 'AndroidApiController@showSpecificPost');
+    Route::middleware("api")->post('store_like', 'AndroidApiController@storeLike');
+    Route::middleware("api")->post('store_comments', 'AndroidApiController@storeComment');
 });

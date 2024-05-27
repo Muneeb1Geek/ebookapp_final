@@ -2981,22 +2981,57 @@ class AndroidApiController extends MainAPIController
         }
     }
 
-    // public function storeLike(Request $request){
-    //     $validator = Validator::make($request->all(), [
-    //         "post_id" => 'required',
-    //         "user_id" => 'required',
-    //         "like_status" => 'required',
-    //     ]);
+    public function storeLike(Request $request){
+        $validator = Validator::make($request->all(), [
+            "post_id" => 'required',
+            "user_id" => 'required',
+            "like" => 'required',
+        ]);
 
-    //     if($validator->fails()){
-    //         return response()->json(['msg'=>"Something went wrong", "error" => $validator->getMessageBag(), 'status' => 400], 400);
-    //     }
+        if($validator->fails()){
+            return response()->json(['msg'=>"Something went wrong", "error" => $validator->getMessageBag(), 'status' => 400], 400);
+        }
 
-    //     try{
+        try{
+            $like = new PostLikes();
+            $like->post_id = $request->post_id;
+            $like->user_id = $request->user_id;
+            $like->like = $request->like;
+            if($like->save()){
+                return response()->json(['EBOOK_APP' => "Like saved successfully", 'status_code'=>200], 200);
+            }else{
+                return response()->json(['EBOOK_APP' => "Like didn`t saved successfully", 'status_code'=>400], 400);
+            }
+        }catch(\Exception $e){
+            return response()->json(['EBOOK_APP' => "Something went wrong.Please try again later", 'status_code' => 400]); 
+        }
+    }
 
-    //     }catch(\Exception $e){
-    //         return response()->json(['EBOOK_APP' => "Something went wrong.Please try again later", 'status_code' => 400]); 
-    //     }
-    // }
+    public function storeComment(Request $request){
+        $validator = Validator::make($request->all(), [
+            "post_id" => 'required',
+            "user_id" => 'required',
+            "comment" => 'required | string',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['msg'=>"Something went wrong", "error" => $validator->getMessageBag(), 'status' => 400], 400);
+        }
+
+        try{
+            $comment = new PostComments();
+            $comment->post_id = $request->post_id;
+            $comment->user_id = $request->user_id;
+            $comment->comment = $request->comment;
+            if($comment->save()){
+                return response()->json(['EBOOK_APP' => "Comment saved successfully", 'status_code'=>200], 200);
+            }else{
+                return response()->json(['EBOOK_APP' => "Comment didn`t saved successfully", 'status_code'=>400], 400);
+            }
+
+        }catch(\Exception $e){
+            return response()->json(['EBOOK_APP' => "Something went wrong.Please try again later", 'status_code' => 400]); 
+        }
+    }
  
 }
