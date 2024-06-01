@@ -2942,7 +2942,7 @@ class AndroidApiController extends MainAPIController
                 "post_image" => $d->post_image,
                 "created_at" => Carbon::parse($d->created_at)->diffForHumans(),
                 "likes" => $d->likes,
-                "comments" => $d->comments,
+                "comments" => $d->comments, 
             ];
 
             if($d->user->user_image){
