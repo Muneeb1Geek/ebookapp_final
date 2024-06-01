@@ -2932,7 +2932,7 @@ class AndroidApiController extends MainAPIController
     }
 
     public function showAllPosts(){
-        $posts = Post::with('likes', 'comments', 'user')->get();
+        $posts = Post::with('likes', 'comments', 'user')->orderby('id', 'desc')->get();
         $data = $posts->map(function($d){
             $postArray = [
                 "id" => $d->id,
